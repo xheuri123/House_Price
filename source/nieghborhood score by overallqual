@@ -1,0 +1,13 @@
+WITH Neighborhood_Premium AS (
+    SELECT 
+        Neighborhood,
+        AVG(SalePrice - (OverallQual * 20000)) AS Raw_Premium
+    FROM olist_orders
+    GROUP BY Neighborhood
+)
+SELECT 
+    NTILE(5) OVER (ORDER BY Raw_Premium ASC) AS Location_Grade, -- 1~5등급으로 자동 배분
+    Neighborhood,
+    ROUND(Raw_Premium, 0) AS Premium_USD
+FROM Neighborhood_Premium
+ORDER BY Location_Grade DESC, Premium_USD DESC;
