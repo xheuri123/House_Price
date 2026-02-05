@@ -1,0 +1,10 @@
+-- object 데이터를 int로 변환하기 위해 이하 쿼리를 이용하여 평균값을 구한 후 오름차순 별 높은 숫자 기입
+
+USE project; -- 데이터베이스 이름
+
+SELECT ExterQual -- 컬럼명
+	, COUNT(*) AS COUNT
+	, ROUND(AVG(saleprice),1) AS AVG_PRICE, MIN(saleprice) AS MIN_PRICE, MAX(saleprice) AS MAX_PRICE
+FROM train -- 테이블 이름
+GROUP BY ExterQual -- 컬럼명
+ORDER BY AVG(saleprice) DESC;
