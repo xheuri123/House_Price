@@ -18,5 +18,18 @@ SELECT
 # stats -> WITH stats
 FROM stats, (SELECT AVG(avg_price) global_avg FROM stats) g;
 
-
-
+WITH neighborhood_stats AS (
+  SELECT 
+    h.Id,
+    h.Neighborhood,
+    h.saleprice,
+    h.OverallQual,
+    h.GarageArea,
+    h.TotalBsmtSF,
+    -- 동네 평균 (다른 윈도우)
+    AVG(h.saleprice) OVER (PARTITION BY h.Neighborhood) as 동네평균,
+    -- 전체 백분위 (다른 윈도우)
+    PERCENT_RANK() OVER (ORDER BY h.saleprice) * 100 as 전체백분위
+  FROM train h
+)
+SELECT * FROM neighborhood_stats;
