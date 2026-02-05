@@ -1,14 +1,10 @@
-CREATE DATABASE project;
-USE project;
-DESCRIBE house_price;
-
-SELECT * FROM house_price;
+SELECT * FROM train;
 
 # [MADE IN AI]
-SELECT @global_avg := AVG(saleprice) FROM house_price;
+SELECT @global_avg := AVG(saleprice) FROM train;
 WITH stats AS ( 
   SELECT Neighborhood, AVG(saleprice) avg_price 
-  FROM house_price GROUP BY Neighborhood 
+  FROM train GROUP BY Neighborhood 
 )
 SELECT 
   Neighborhood, 
