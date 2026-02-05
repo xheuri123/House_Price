@@ -2,7 +2,7 @@ WITH Neighborhood_Premium AS (
     SELECT 
         Neighborhood,
         AVG(SalePrice - (OverallQual * 20000)) AS Raw_Premium
-    FROM olist_orders
+    FROM train
     GROUP BY Neighborhood
 )
 SELECT 
